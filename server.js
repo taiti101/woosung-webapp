@@ -1,3 +1,4 @@
+
 const express = require("express");
 const app = express();
 
@@ -9,13 +10,12 @@ app.get("/health", (req, res) => {
   res.json({ status: "ok", uptime: process.uptime() });
 });
 
-app.get("/crash", (req, res) => {
-  throw new Error("Simulated crash");
+app.get("/version", (req, res) => {
+  res.send(`App version: ${process.env.APP_VERSION || "unset"}`);
 });
 
 const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => console.log(`Listening on port ${PORT}`));
 
-app.get("/version", (req, res) => {
-  res.send(`App version: ${process.env.APP_VERSION || "unset"}`);
+app.listen(PORT, () => {
+  console.log(`Listening on port ${PORT}`);
 });
